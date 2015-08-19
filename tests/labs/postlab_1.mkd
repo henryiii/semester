@@ -1,0 +1,25 @@
+1.  What was our goal for each of these two experiments?
+    * We roughly measured $g$ (2)
+    * We showed that acceleration in x is nearly 0/that x and y were seperable (2)
+
+2.  Was your value for $g$ different from the accepted value? If so, was it larger in magnitude or smaller? What could account for this difference?
+    * The value probably was larger, from perspective distortion (5)
+
+3.  What did you notice when comparing the horizontal position vs. time graph to the vertical position vs. time graph?
+    * One was linear (3)
+    * Indicates 0 acceleration (3)
+
+4.  When we create a graph of variable $A$ vs. variable $B$, which variable is the independent and which is the dependent variable? Which variable goes on which axis when plotting? This assumes standard notation used in this lab manual.
+    * $A$ goes on the $y$ axis (3)
+    * $A$ is the dependent variable (3)
+
+5.  Assume you came across a dark canyon. Wondering how deep it was, you remembered this lab. You drop a rock into the canyon and time the fall. 2.0 seconds later, you hear it hit bottom. Can you jump in safely? Show your reasoning.
+    * 64 feet or almost 20 meters (3)
+    * No, would be too deep (2)
+
+6.  Wiki question: Look up *Thunder* on Wikipedia. If you see the lightning then hear the thunder 9 seconds later, about how far away did the lightning strike? Show your algebraic work.
+    * Nearly 2 miles, or 3 km away (3)
+    * Work (2)
+ 
+7.  Find something unique in your life that relates to this lab and briefly explain how it relates to this lab (do not use the wiki question example).
+    * Anything reasonable (4)
