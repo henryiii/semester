@@ -13,7 +13,7 @@ setup(
     author_email = "henryiii@physics.utexas.edu",
     license = "MIT",
     url = "http://semester.readthedocs.org",
-    packages = ["semester","semester.init","semester.grades",
+    packages = ["semester","semester.init",
                 "semester.exam", "semester.web",
                 "semester.latex"],
     platforms = ["POSIX", "Windows"],
@@ -38,6 +38,7 @@ setup(
             'semester = semester.__main__:Semester.run',
             ],
         'gui_scripts':[
+            'semstergrades = semester.grades:main',
             ]
         },
 )

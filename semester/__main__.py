@@ -7,6 +7,7 @@ from plumbum import cli
 from .assignments import Assignments
 from .makefigures import MakeFigures
 from .roster import Roster
+from .grades import process
 
 class Semester(cli.Application):
     'Holds several semester cli tools'
@@ -14,3 +15,12 @@ class Semester(cli.Application):
 Semester.subcommand("assignments", Assignments)
 Semester.subcommand("makefigures", MakeFigures)
 Semester.subcommand("roster", Roster)
+
+@Semester.subcommand("grades")
+class Grades(cli.Application):
+    "Sets the grades using a gui application."
+
+    def main(self, *filenames):
+        for f in filenames:
+            cli.ExistingFile(f) # Just checking for errors, result not used
+        process(filenames)
