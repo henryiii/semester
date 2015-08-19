@@ -64,7 +64,7 @@ def main(filename, outext, ans, prepend=None):
      << (txt if ans else studenttxt).encode('ascii'))()
 
 
-class Application(cli.Application):
+class Assignments(cli.Application):
     DESCRIPTION = '''Makes assignments for pandoc. Needs pandoc in the path. \
 Processes all *.{0} if no file given.'''.format(INPUTEXT)
     answer = cli.Flag(['-a', '--answer'],
@@ -106,8 +106,8 @@ Processes all *.{0} if no file given.'''.format(INPUTEXT)
 
 
 if __name__ == '__main__':
-    Application.run()
+    Assignments.run()
 
 
 def __main__():
-    Application.run()
+    Assignments.run()

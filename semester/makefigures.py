@@ -17,7 +17,8 @@ def image_comp(item):
            )
 
 
-class MyApp(cli.Application):
+class MakeFigures(cli.Application):
+    'Creates figures from source files, in several useful formats.'
     def main(self, *srcfiles):
         items = map(cli.ExistingFile, srcfiles) if srcfiles else local.cwd // '*.tex'
         for item in items:
@@ -25,7 +26,7 @@ class MyApp(cli.Application):
 
 
 if __name__ == '__main__':
-    MyApp.run()
+    MakeFigures.run()
 
 def __main__():
-    MyApp.run()
+    MakeFigures.run()

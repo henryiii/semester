@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 import os
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
 
 HERE = os.path.dirname(__file__)
 
@@ -17,8 +14,8 @@ setup(
     license = "MIT",
     url = "http://semester.readthedocs.org",
     packages = ["semester","semester.init","semester.grades",
-                "semester.exam","semester.assignments", "semester.web"
-                "semester.latex"]
+                "semester.exam", "semester.web",
+                "semester.latex"],
     platforms = ["POSIX", "Windows"],
     provides = ["semester"],
     keywords = "classes, teaching, grading, exam, lab, course, school",
@@ -36,4 +33,11 @@ setup(
          "Topic :: Software Development :: Build Tools",
          "Topic :: System :: Systems Administration",
     ],
+    entry_points={
+        'console_scripts':[
+            'semester = semester.__main__:Semester.run',
+            ],
+        'gui_scripts':[
+            ]
+        },
 )
