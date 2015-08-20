@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 HERE = os.path.dirname(__file__)
 
@@ -13,9 +13,7 @@ setup(
     author_email = "henryiii@physics.utexas.edu",
     license = "MIT",
     url = "http://semester.readthedocs.org",
-    packages = ["semester","semester.init",
-                "semester.exam", "semester.web",
-                "semester.latex"],
+    packages = find_packages(),
     platforms = ["POSIX", "Windows"],
     provides = ["semester"],
     keywords = "classes, teaching, grading, exam, lab, course, school",

@@ -23,4 +23,11 @@ class Grades(cli.Application):
     def main(self, *filenames):
         for f in filenames:
             cli.ExistingFile(f) # Just checking for errors, result not used
-        process(filenames)
+
+@Semester.subcommand("canvas")
+class Canvas(cli.Application):
+    "Helps run through empty grade files."
+
+    def main(self):
+        from .util.canvasgrader import main
+        main()
