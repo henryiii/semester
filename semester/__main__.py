@@ -31,3 +31,6 @@ class Canvas(cli.Application):
     def main(self):
         from .util.canvasgrader import main
         main()
+
+if __name__ == '__main__':
+    Semester.run()

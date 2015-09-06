@@ -34,10 +34,12 @@ START = r'''
 \begin{document}
 \pagestyle{empty}
 '''
-TABLEHEAD = r'''}\\[2ex]
 
-\begin{tabular}{rl*{11}{|p{.25in}}|}
-Name & EID & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\\hline'''
+def TABLEHEAD(n) :
+    lines = [r'}\\[2ex]', '', r'\begin{tabular}{rl*{'+str(n)+r'}{|p{.25in}}|}']
+    lines.append('Name & EID & ' + ' & '.join(str(i+1) for i in range(n)) +  r' \\\hline')
+    return '\n'.join(lines)
+
 ROSTTABLEHEAD = r'''}\\[2ex]
 
 \begin{tabular}{|rl|p{4in}|}
@@ -49,6 +51,7 @@ Name & EID & Present? \\\hline'''
 class Roster(cli.Application):
     'This makes a printable grade list from a downloaded roster.'
     roster = cli.Flag(['-r', '--roster'], help='Makes a single column roster instead')
+    number = cli.SwitchAttr(['-n', '--number'], cli.Range(1,12), default=11, help='Number of columns in gradesheet')
     _schedule = None
 
     @cli.switch(['-s', '--schedule'], cli.ExistingFile)
@@ -72,7 +75,7 @@ class Roster(cli.Application):
 
             out(START)
 
-            lst = ['']*(1 if self.roster else 11)
+            lst = ['']*(1 if self.roster else self.number)
             printed = False
 
             def splitnames(row):
@@ -100,7 +103,7 @@ class Roster(cli.Application):
                 out(r'''
             \begin{center}
 
-            {\bfseries\large''',class_header,(ROSTTABLEHEAD if self.roster else TABLEHEAD))
+            {\bfseries\large''',class_header,(ROSTTABLEHEAD if self.roster else TABLEHEAD(self.number)))
 
                 one_class = one_class.apply(splitnames,axis=1)
                 one_class.apply(printrow,axis=1)
