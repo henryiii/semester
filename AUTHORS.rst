@@ -2,4 +2,4 @@
 Developers
 ==========
 
-* Henry's desktop Ubuntu <henryschreineriii@utexas.edu>
+* Henry Schreiner <henryschreineriii@utexas.edu>
