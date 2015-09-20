@@ -23,7 +23,6 @@ setup(
          "License :: OSI Approved :: MIT License",
          "Operating System :: Microsoft :: Windows",
          "Operating System :: POSIX",
-         "Programming Language :: Python :: 2.6",
          "Programming Language :: Python :: 2.7",
          "Programming Language :: Python :: 3",
          "Programming Language :: Python :: 3.3",
@@ -36,7 +35,8 @@ setup(
             'semester = semester.__main__:Semester.run',
             ],
         'gui_scripts':[
-            'semstergrades = semester.grades:main',
+            'semester.grades = semester.grades:main',
+            'semester.roster = semester.roster:main',
             ]
         },
 )
