@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from plumbum import cli
 
 from .assignments import Assignments
-from .makefigures import MakeFigures
+from .figures import Figures
 from .roster import Roster
 from .grades import process
 
@@ -13,7 +13,7 @@ class Semester(cli.Application):
     'Holds several semester cli tools'
 
 Semester.subcommand("assignments", Assignments)
-Semester.subcommand("makefigures", MakeFigures)
+Semester.subcommand("figures", Figures)
 Semester.subcommand("roster", Roster)
 
 @Semester.subcommand("grades")

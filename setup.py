@@ -33,6 +33,8 @@ setup(
     entry_points={
         'console_scripts':[
             'semester = semester.__main__:Semester.run',
+            'semester.assignments = semester.assignments:Assignments.run',
+            'semester.figures = semester.figures:Figures.run',
             ],
         'gui_scripts':[
             'semester.grades = semester.grades:main',
