@@ -58,10 +58,36 @@ For example:
 The prepend file goes at the beginning, and can contain `{name}`, which will be based on the filename.
 If you name your files `postlab1.mkd` or `homework1.mkd`, they will be nicely typeset here.
 
+.. note::
+
+   There is a graphical tool for creating assignments from `.mkd` files. It was created using `tKinter`
+   and `sandals.py`.
+
 Figures
 -------
 
-The problem with these assignments, while they support latex math and 
+The problem with these assignments, while they support latex math and markdown formating, putting images in can be hard. The `semester figures` command allows you to create the required copies of a .tex image written in Tikz to insert into an assignment. See the examples folder.
+
+Roster
+------
+
+
+
+Init
+----
+
+
+
+Grades
+------
+
+
+Canvas
+------
+
+
+
+
 
 .. code-block:: bash
 

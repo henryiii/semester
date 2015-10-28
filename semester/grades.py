@@ -358,6 +358,7 @@ def closest(arr,val):
 
 def readcsv(name):
     'Canvas only'
+    print("Reading:", name)
     students = pd.read_csv(name, index_col=3, skiprows=[1]) # Making some assumptions about the Canvas format
     students['Student']
     names = students['Student'].str.title().str.split(', ').apply(pd.Series)
@@ -411,7 +412,7 @@ if __name__ == '__main__':
     main()
 
 def main():
-    process(sys.argv[:1])
+    process(sys.argv[1:])
 
 
 def process(filenames=()):

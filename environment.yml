@@ -1,0 +1,11 @@
+name: pysem
+dependencies:
+  - python=3.4
+  - numpy
+  - scipy
+  - matplotlib
+  - pyqt
+  - pytest
+  - pandas
+  - pip:
+    - plumbum

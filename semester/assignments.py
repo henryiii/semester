@@ -60,7 +60,7 @@ def main(filename, outext, ans, prepend=None):
     txt = txt.replace('(1)', '**(1 point)**')
     txt = ansheading + RE_POINTS.sub(r'**(\g<1> points)**', txt)
 
-    (pandoc['-f', INPUTFORM, '-o', str(outname), out_opts]
+    (pandoc['-V','geometry:margin=1in','-f', INPUTFORM, '-o', str(outname), out_opts]
      << (txt if ans else studenttxt).encode('ascii'))()
 
 
