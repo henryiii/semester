@@ -21,7 +21,9 @@ This is a standard python package and can be installed using pip. From
 Pypi, this is `pip install semster`, and from the repository, simply
 use `pip install -e .` to install (will still be editable). The `requirements.txt`
 file contains the Python requirements, like `plumbum`. The easiest way to 
-get the requirements is to install Anaconda.
+get the requirements is to install Anaconda. If you are familiar with Conda's
+`env` tool, you can use the `environment.yml` file to instally prepare a virtual
+enviroment for semester.
 
 Other requirements: this needs `pandoc` (for creating different output formats) and
 `ImageMagick` (for the figure conversion). Currently these are required. Optional

@@ -80,7 +80,7 @@ Processes all *.{0} if no file given.'''.format(INPUTEXT)
 
     output = cli.SwitchAttr(['-o', '--output'],
             cli.Set('pdf', 'docx', 'html', 'odt'),
-            list=True, default=list(IMG_FORMATS),
+            list=True, 
             help='Sets the output format...')
 
     def main(self, *files):
@@ -99,10 +99,21 @@ Processes all *.{0} if no file given.'''.format(INPUTEXT)
             pass
 
         for item in items:
-            for output in self.output:
+            if self.output:
+                for output in self.output:
+                    print(item.basename + '...', end=' ')
+                    main(item, output, self.answer, self._prepend)
+                    print('\b\b\b\b -> {1}{0} done.'.format(output, 'answers ' if self.answer else ''))
+
+            else:
+                for output in IMG_FORMATS:
+                    print(item.basename + '...', end=' ')
+                    main(item, output, False, self._prepend)
+                    print('\b\b\b\b -> {0} done.'.format(output))
                 print(item.basename + '...', end=' ')
-                main(item, output, self.answer, self._prepend)
-                print('\b\b\b\b -> {0} done.'.format(output))
+                main(item, 'pdf', True, self._prepend)
+                print('\b\b\b\b -> answers pdf done.')
+                    
 
 
 if __name__ == '__main__':

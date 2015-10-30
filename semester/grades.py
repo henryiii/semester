@@ -368,7 +368,10 @@ def readcsv(name):
     student_list['Last'] = names[0]
     student_list['Score'] = students['Final Score']
     classes = students['Section'].str.extract(r'(\d{5})')
-    student_list['Class'] = classes.apply(int)  # This fails on older pandas version (works on 0.15)
+    try:
+        student_list['Class'] = classes.apply(int)  # This fails on older pandas version (works on 0.15)
+    except ValueError:
+        student_list['Class'] = students['Section']
     student_list['Grades'] = ''
 
     return student_list
