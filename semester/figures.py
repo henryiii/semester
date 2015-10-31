@@ -28,5 +28,5 @@ class Figures(cli.Application):
 if __name__ == '__main__':
     Figures.run()
 
-def __main__():
+def main():
     Figures.run()

@@ -34,3 +34,6 @@ class Canvas(cli.Application):
 
 if __name__ == '__main__':
     Semester.run()
+
+def main():
+    Semester.run()

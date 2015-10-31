@@ -80,7 +80,7 @@ Processes all *.{0} if no file given.'''.format(INPUTEXT)
 
     output = cli.SwitchAttr(['-o', '--output'],
             cli.Set('pdf', 'docx', 'html', 'odt'),
-            list=True, 
+            list=True,
             help='Sets the output format...')
 
     def main(self, *files):
@@ -113,12 +113,12 @@ Processes all *.{0} if no file given.'''.format(INPUTEXT)
                 print(item.basename + '...', end=' ')
                 main(item, 'pdf', True, self._prepend)
                 print('\b\b\b\b -> answers pdf done.')
-                    
+
 
 
 if __name__ == '__main__':
     Assignments.run()
 
 
-def __main__():
+def main():
     Assignments.run()

@@ -121,7 +121,8 @@ class Roster(cli.Application):
                outname.with_suffix('.aux'))
         print("Created", outname.with_suffix('.pdf'))
 
-
-
 if __name__ == '__main__':
+    Roster.run()
+
+def main():
     Roster.run()
