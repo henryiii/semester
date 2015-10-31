@@ -7,7 +7,7 @@ HERE = os.path.dirname(__file__)
 
 setup(
     name = "semester",
-    version = "0.1.0",
+    version = "0.1.1",
     description = "Tools to help with running a semester based course",
     author = "Henry Schreiner",
     author_email = "henryiii@physics.utexas.edu",
