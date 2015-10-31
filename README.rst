@@ -21,7 +21,8 @@ This is a standard python package and can be installed using pip. From
 Pypi, this is `pip install semster`, and from the repository, simply
 use `pip install -e .` to install (will still be editable). The `requirements.txt`
 file contains the Python requirements, like `plumbum`. The easiest way to 
-get the requirements is to install Anaconda. If you are familiar with Conda's
+get the requirements on Mac, Linux, or Windows is to install Anaconda.
+If you are familiar with Conda's
 `env` tool, you can use the `environment.yml` file to instally prepare a virtual
 enviroment for semester.
 
@@ -60,10 +61,6 @@ For example:
 The prepend file goes at the beginning, and can contain `{name}`, which will be based on the filename.
 If you name your files `postlab1.mkd` or `homework1.mkd`, they will be nicely typeset here.
 
-.. note::
-
-   There is a graphical tool for creating assignments from `.mkd` files. It was created using `tKinter`
-   and `sandals.py`.
 
 Figures
 -------
@@ -73,21 +70,32 @@ The problem with these assignments, while they support latex math and markdown f
 Roster
 ------
 
+This allows you to take a CLIPs roster and make a printable roster that you can use to grade with.
+
+A gui.roster option allows simple usage from a GUI.
 
 
 Init
 ----
 
+A package for creating new semester files, such as syllabii, teaching guidelines, schedule handouts. Has an optional GUI.
 
+.. note:: Coming soon!
 
 Grades
 ------
 
+This allows you to grade a set of canvas classes (1 or more) with a powerful gui. Download the file(s) from Canvas export and then open them
+with this program (if you open the program without an argument, it will ask you for a file with a GUI).
+
+Once open, you can drag to set grades and there arer buttons to save files in different formats.
 
 Canvas
 ------
 
+A small utility to assist grading in Canvas when yo set a 0 point question (for just in time teaching style, for example).
 
+.. note:: Coming soon!
 
 
 
