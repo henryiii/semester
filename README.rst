@@ -1,6 +1,6 @@
-========
-semester
-========
+================
+Python: Semester
+================
 
 
 A package of scripts and tools to make running a class or lab easier.
@@ -18,38 +18,40 @@ Installation
 ============
 
 This is a standard python package and can be installed using pip. From
-Pypi, this is `pip install semster`, and from the repository, simply
+PyPI, this is `pip install semster`, and from the repository, simply
 use `pip install -e .` to install (will still be editable). The `requirements.txt`
 file contains the Python requirements, like `plumbum`. The easiest way to 
 get the requirements on Mac, Linux, or Windows is to install Anaconda.
 If you are familiar with Conda's
-`env` tool, you can use the `environment.yml` file to instally prepare a virtual
-enviroment for semester.
+`env` tool, you can use the `environment.yml` file to prepare a virtual
+environment for semester.
 
 Other requirements: this needs `pandoc` (for creating different output formats) and
 `ImageMagick` (for the figure conversion). Currently these are required. Optional
-components include `PyQT` (for some of the guis).
+components include `PyQT` (for some of the GUIs).
 
 Tools
 =====
 
-The main program is a command line laucher for the scripts. Simply run `semester` or
+The main program is a command line launcher for the scripts. Simply run `semester` or
 `python -m semester` to
 see a list of the programs. All the programs have a shortcut, too, so this is just for
-convinence. Shortcuts are added to the python path for the programs (or the the `python -m`
-runable module syntax can be used).
+convenience. Shortcuts are added to the python path for the programs (or the `python -m`
+runnable module syntax can be used).
 
 Assignments
 -----------
 
 This can be run as `semester assignments` or `semester.assignments`. Makes assignments
-from markdown files using pandoc. Processes all `*.mkd` files if no file fiven. Options include
+from markdown files using Pandoc. Processes all `*.mkd` files if no file given. Options include
 `-a` to make an answer key, `-o` to set the output format(s), and `-p` to prepend a file to each
 markdown file. Will try to prepend `prepend.rst` if no file given.
 
 The format of the `.rst` files should be as follows:
-A numbered list indicating questions
-A stared sublist denoting answers, with values in parenthesis
+
+* A numbered list indicating questions
+* A stared sublist denoting answers, with values in parenthesis
+
 For example:
 
 .. code-block::
@@ -78,17 +80,17 @@ A gui.roster option allows simple usage from a GUI.
 Init
 ----
 
-A package for creating new semester files, such as syllabii, teaching guidelines, schedule handouts. Has an optional GUI.
+A package for creating new semester files, such as syllabi, teaching guidelines, schedule handouts. Has an optional GUI.
 
 .. note:: Coming soon!
 
 Grades
 ------
 
-This allows you to grade a set of canvas classes (1 or more) with a powerful gui. Download the file(s) from Canvas export and then open them
+This allows you to grade a set of canvas classes (1 or more) with a powerful GUI. Download the file(s) from Canvas export and then open them
 with this program (if you open the program without an argument, it will ask you for a file with a GUI).
 
-Once open, you can drag to set grades and there arer buttons to save files in different formats.
+Once open, you can drag to set grades and there are buttons to save files in different formats.
 
 Canvas
 ------
