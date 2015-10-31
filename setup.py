@@ -35,10 +35,11 @@ setup(
             'semester = semester.__main__:Semester.run',
             'semester.assignments = semester.assignments:Assignments.run',
             'semester.figures = semester.figures:Figures.run',
+            'semester.roster = semester.roster:Roster.run',
             ],
         'gui_scripts':[
             'semester.grades = semester.grades:main',
-            'semester.roster = semester.roster:main',
+            'semester.gui.roster = semester.gui.roster:main'
             ]
         },
 )

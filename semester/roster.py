@@ -119,6 +119,7 @@ class Roster(cli.Application):
         delete(outname,
                outname.with_suffix('.log'),
                outname.with_suffix('.aux'))
+        print("Created", outname.with_suffix('.pdf'))
 
 
 
