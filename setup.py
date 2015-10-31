@@ -19,7 +19,7 @@ setup(
     keywords = "classes, teaching, grading, exam, lab, course, school",
     long_description = open(os.path.join(HERE, "README.rst"), "r").read(),
     classifiers = [
-         "Development Status :: 5 - Production/Stable",
+         "Development Status :: 2 - Pre-Alpha",
          "License :: OSI Approved :: MIT License",
          "Operating System :: Microsoft :: Windows",
          "Operating System :: POSIX",

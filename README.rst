@@ -52,7 +52,7 @@ A numbered list indicating questions
 A stared sublist denoting answers, with values in parenthesis
 For example:
 
-.. code-block:: markdown
+.. code-block::
 
     1. First question
         * First part of answer (2)
@@ -96,13 +96,5 @@ Canvas
 A small utility to assist grading in Canvas when yo set a 0 point question (for just in time teaching style, for example).
 
 .. note:: Coming soon!
-
-
-
-.. code-block:: bash
-
-    $ semester
-
-
 
 
