@@ -2,7 +2,6 @@
 from __future__ import print_function, unicode_literals
 import re
 from plumbum import local, cli, CommandNotFound
-# Required plumbum > 1.4.2
 
 INPUTEXT = 'mkd'
 INPUTFORM = 'markdown+escaped_line_breaks+implicit_figures'
@@ -38,7 +37,7 @@ def get_path(possibles):
 pandoc = get_path(POSPATHS)
 
 
-def main(filename, outext, ans, prepend=None):
+def process(filename, outext, ans, prepend=None):
     name = filename.with_suffix('').basename.replace('_', ' ').title()
     outname = filename.with_suffix('.ans' if ans else '').with_suffix('.'+outext, 0)
     out_opts = IMG_FORMATS.get(outext, '')
@@ -102,16 +101,16 @@ Processes all *.{0} if no file given.'''.format(INPUTEXT)
             if self.output:
                 for output in self.output:
                     print(item.basename + '...', end=' ')
-                    main(item, output, self.answer, self._prepend)
+                    process(item, output, self.answer, self._prepend)
                     print('\b\b\b\b -> {1}{0} done.'.format(output, 'answers ' if self.answer else ''))
 
             else:
                 for output in IMG_FORMATS:
                     print(item.basename + '...', end=' ')
-                    main(item, output, False, self._prepend)
+                    process(item, output, False, self._prepend)
                     print('\b\b\b\b -> {0} done.'.format(output))
                 print(item.basename + '...', end=' ')
-                main(item, 'pdf', True, self._prepend)
+                process(item, 'pdf', True, self._prepend)
                 print('\b\b\b\b -> answers pdf done.')
 
 
