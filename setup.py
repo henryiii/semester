@@ -35,6 +35,7 @@ setup(
         'console_scripts':[
             'semester = semester.__main__:main',
             'semester.assignments = semester.assignments:main',
+            'semester.canvas = semester.utils.canvasgrader:main',
             'semester.figures = semester.figures:main',
             'semester.roster = semester.roster:main',
             ],
