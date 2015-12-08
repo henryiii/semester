@@ -90,7 +90,7 @@ class Cutoffs(object):
         self.max = max(self.student_list['Score'])+2
         self.min = min(x for x in self.student_list['Score'] if x > 5)-4
 
-        fig = plt.figure(1,figsize=(16,8))
+        fig = plt.figure(1, figsize=(16,8))
         ax = fig.add_subplot(111,
                              autoscale_on=False,
                              xlim=(0,self.num_students),
@@ -211,7 +211,7 @@ class Cutoffs(object):
         plt.show(block=True)
 
     def _savegrades(self, event=None):
-        sorted_students = self.student_list.sort(['Last','First'])
+        sorted_students = self.student_list.sort_values(by=['Last','First'])
         print(sorted_students)
         root = Tk()
         root.withdraw()
@@ -235,7 +235,7 @@ class Cutoffs(object):
         csvfile = asksaveasfile(mode='w',defaultextension='.csv',title='Choose a file to save registrar import to')
         root.destroy()
         if csvfile:
-            sorted_students = self.student_list.sort(['Last','First'])
+            sorted_students = self.student_list.sort_values(by=['Last','First'])
             finalgrades = pd.DataFrame()
             finalgrades['Name'] = sorted_students['Last'] + ', ' + sorted_students['First']
             finalgrades['Grade'] = sorted_students['Grades']
