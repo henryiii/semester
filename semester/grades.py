@@ -238,11 +238,12 @@ class Cutoffs(object):
             sorted_students = self.student_list.sort_values(by=['Last','First'])
             finalgrades = pd.DataFrame()
             finalgrades['Name'] = sorted_students['Last'] + ', ' + sorted_students['First']
+            finalgrades['EID'] = sorted_students.index
             finalgrades['Grade'] = sorted_students['Grades']
             finalgrades['Absences'] = ''
             finalgrades['Remarks'] = ''
             finalgrades['Unique'] = sorted_students['Class']
-            finalgrades.to_csv(csvfile,sep='\t',index_label='EID',encoding='utf-8')
+            finalgrades.to_csv(csvfile, sep='\t', index=False, encoding='utf-8')
 
     def _loadcuts(self, event=None):
         filetypes = [
