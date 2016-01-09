@@ -42,7 +42,7 @@ class Cutoffs(object):
         self.gpanames = np.array(['F','D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A'])
         self.gpavalues = np.array([0, 1-1/3, 1,  1+1/3, 2-1/3, 2,   2+1/3, 3-1/3, 3,   3+1/3, 4-1/3, 4])
         self.student_list = students
-        self.student_list.sort(['Score'],ascending=False,inplace=True)
+        self.student_list.sort_values(by='Score',ascending=False,inplace=True)
         #self.totals = students['Score'].order(ascending=False)
         # Remove the following line to remove cut prediction
         self.gpacuts[:] = self.predict_cuts()
@@ -90,13 +90,14 @@ class Cutoffs(object):
         self.max = max(self.student_list['Score'])+2
         self.min = min(x for x in self.student_list['Score'] if x > 5)-4
 
-        fig = plt.figure(1,figsize=(16,8))
+        fig = plt.figure(1, figsize=(16,8))
         ax = fig.add_subplot(111,
                              autoscale_on=False,
                              xlim=(0,self.num_students),
                              ylim=(self.min,self.max))
 
         fig.subplots_adjust(right=0.76, left=.05)
+        self.fig = fig
 
         # Set 1 line per %
         ax.yaxis.set_major_locator(plt.MultipleLocator(10.0))
@@ -210,7 +211,7 @@ class Cutoffs(object):
         plt.show(block=True)
 
     def _savegrades(self, event=None):
-        sorted_students = self.student_list.sort(['Last','First'])
+        sorted_students = self.student_list.sort_values(by=['Last','First'])
         print(sorted_students)
         root = Tk()
         root.withdraw()
@@ -234,14 +235,15 @@ class Cutoffs(object):
         csvfile = asksaveasfile(mode='w',defaultextension='.csv',title='Choose a file to save registrar import to')
         root.destroy()
         if csvfile:
-            sorted_students = self.student_list.sort(['Last','First'])
+            sorted_students = self.student_list.sort_values(by=['Last','First'])
             finalgrades = pd.DataFrame()
             finalgrades['Name'] = sorted_students['Last'] + ', ' + sorted_students['First']
+            finalgrades['EID'] = sorted_students.index
             finalgrades['Grade'] = sorted_students['Grades']
             finalgrades['Absences'] = ''
             finalgrades['Remarks'] = ''
             finalgrades['Unique'] = sorted_students['Class']
-            finalgrades.to_csv(csvfile,sep='\t',index_label='EID',encoding='utf-8')
+            finalgrades.to_csv(csvfile, sep='\t', index=False, encoding='utf-8')
 
     def _loadcuts(self, event=None):
         filetypes = [
@@ -268,6 +270,7 @@ class Cutoffs(object):
             if self.label_state != 0:
                 label.set_text(self.student_list.iloc[n]['First'] + ' ' + self.student_list.iloc[n]['Last'][0] + '.'
                                if self.label_state == 1 else self.whatgrade(self.student_list.iloc[n]['Score']))
+        self.fig.canvas.draw()
 
     def _updatesideplot(self):
         for bar,hi in zip(self.sideplot,self.hist()):
