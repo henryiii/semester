@@ -1,5 +1,5 @@
-plumbum>=1.5.0
-numpy
-scipy
 matplotlib
-six
+numpy
+pandas
+plumbum>=1.5.0
+scipy

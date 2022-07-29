@@ -58,3 +58,6 @@ Homepage = "https://github.com/henryiii/semester"
 
 [tool.hatch.version]
 path = "semester/__init__.py"
+
+[tool.isort]
+profile = "black"

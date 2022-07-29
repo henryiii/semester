@@ -18,36 +18,36 @@ Installation
 ============
 
 This is a standard python package and can be installed using pip. From
-PyPI, this is `pip install semster`, and from the repository, simply
-use `pip install -e .` to install (will still be editable). The `requirements.txt`
-file contains the Python requirements, like `plumbum`. The easiest way to 
+PyPI, this is ``pip install semster``, and from the repository, simply
+use ``pip install -e .`` to install (will still be editable). The ``requirements.txt``
+file contains the Python requirements, like ``plumbum``. The easiest way to
 get the requirements on Mac, Linux, or Windows is to install Anaconda.
 If you are familiar with Conda's
-`env` tool, you can use the `environment.yml` file to prepare a virtual
+``env`` tool, you can use the ``environment.yml`` file to prepare a virtual
 environment for semester.
 
-Other requirements: this needs `pandoc` (for creating different output formats) and
-`ImageMagick` (for the figure conversion). Currently these are required. Optional
-components include `PyQT` (for some of the GUIs).
+Other requirements: this needs ``pandoc`` (for creating different output formats) and
+``ImageMagick`` (for the figure conversion). Currently these are required. Optional
+components include ``PyQT4`` (for some of the GUIs).
 
 Tools
 =====
 
-The main program is a command line launcher for the scripts. Simply run `semester` or
-`python -m semester` to
+The main program is a command line launcher for the scripts. Simply run ``semester`` or
+``python -m semester`` to
 see a list of the programs. All the programs have a shortcut, too, so this is just for
-convenience. Shortcuts are added to the python path for the programs (or the `python -m`
+convenience. Shortcuts are added to the python path for the programs (or the ``python -m``
 runnable module syntax can be used).
 
 Assignments
 -----------
 
-This can be run as `semester assignments` or `semester.assignments`. Makes assignments
-from markdown files using Pandoc. Processes all `*.mkd` files if no file given. Options include
-`-a` to make an answer key, `-o` to set the output format(s), and `-p` to prepend a file to each
-markdown file. Will try to prepend `prepend.rst` if no file given.
+This can be run as ``semester assignments`` or ``semester.assignments``. Makes assignments
+from markdown files using Pandoc. Processes all ``*.mkd`` files if no file given. Options include
+``-a`` to make an answer key, ``-o`` to set the output format(s), and ``-p`` to prepend a file to each
+markdown file. Will try to prepend ``prepend.rst`` if no file given.
 
-The format of the `.rst` files should be as follows:
+The format of the ``.rst`` files should be as follows:
 
 * A numbered list indicating questions
 * A stared sublist denoting answers, with values in parenthesis
@@ -60,14 +60,17 @@ For example:
         * First part of answer (2)
         * Answers can have multiple parts(3)
 
-The prepend file goes at the beginning, and can contain `{name}`, which will be based on the filename.
-If you name your files `postlab1.mkd` or `homework1.mkd`, they will be nicely typeset here.
+The prepend file goes at the beginning, and can contain ``{name}``, which will be based on the filename.
+If you name your files ``postlab1.mkd`` or ``homework1.mkd``, they will be nicely typeset here.
 
 
 Figures
 -------
 
-The problem with these assignments, while they support latex math and markdown formating, putting images in can be hard. The `semester figures` command allows you to create the required copies of a .tex image written in Tikz to insert into an assignment. See the examples folder.
+The problem with these assignments, while they support latex math and markdown
+formatting, putting images in can be hard. The ``semester figures`` command
+allows you to create the required copies of a ``.tex`` image written in Tikz to
+insert into an assignment. See the examples folder.
 
 Roster
 ------
@@ -98,5 +101,3 @@ Canvas
 A small utility to assist grading in Canvas when yo set a 0 point question (for just in time teaching style, for example).
 
 .. note:: Coming soon!
-
-

@@ -1,84 +1,46 @@
-from contextlib import contextmanager
+from __future__ import annotations
+
 import threading
-
-try: # python 3
-    import tkinter
-    from tkinter import messagebox
-    from tkinter import filedialog
-    from tkinter import simpledialog
-    from tkinter import scrolledtext
-    from tkinter import Scrollbar
-
-    from tkinter import N
-    from tkinter import NE
-    from tkinter import E
-    from tkinter import SE
-    from tkinter import S
-    from tkinter import SW
-    from tkinter import W
-    from tkinter import NW
-
-    from tkinter import CENTER
-    from tkinter import BOTTOM
-    from tkinter import LEFT
-    from tkinter import RIGHT
-    from tkinter import TOP
-    from tkinter import NONE
-
-    from tkinter import NORMAL
-    from tkinter import ACTIVE
-    from tkinter import DISABLED
-
-    from tkinter import FLAT
-    from tkinter import RAISED
-    from tkinter import SUNKEN
-    from tkinter import GROOVE
-    from tkinter import RIDGE
-
-    from tkinter import TRUE
-    from tkinter import FALSE
-
-except ImportError: # python 2
-    import Tkinter as tkinter
-    import tkMessageBox as messagebox
-    import tkFileDialog as filedialog
-    import tkSimpleDialog as simpledialog
-    import ScrolledText as scrolledtext
-    from Tkinter import Scrollbar
-
-    from Tkinter import N
-    from Tkinter import NE
-    from Tkinter import E
-    from Tkinter import SE
-    from Tkinter import S
-    from Tkinter import SW
-    from Tkinter import W
-    from Tkinter import NW
-
-    from Tkinter import CENTER
-    from Tkinter import BOTTOM
-    from Tkinter import LEFT
-    from Tkinter import RIGHT
-    from Tkinter import TOP
-    from Tkinter import NONE
-
-    from Tkinter import NORMAL
-    from Tkinter import ACTIVE
-    from Tkinter import DISABLED
-
-    from Tkinter import FLAT
-    from Tkinter import RAISED
-    from Tkinter import SUNKEN
-    from Tkinter import GROOVE
-    from Tkinter import RIDGE
-
-    from Tkinter import TRUE
-    from Tkinter import FALSE
+import tkinter
+from contextlib import contextmanager
+from tkinter import (  # noqa: F401
+    ACTIVE,
+    BOTTOM,
+    CENTER,
+    DISABLED,
+    FALSE,
+    FLAT,
+    GROOVE,
+    LEFT,
+    NE,
+    NONE,
+    NORMAL,
+    NW,
+    RAISED,
+    RIDGE,
+    RIGHT,
+    SE,
+    SUNKEN,
+    SW,
+    TOP,
+    TRUE,
+    E,
+    N,
+    S,
+    Scrollbar,
+    TclError,
+    W,
+    filedialog,
+    messagebox,
+    scrolledtext,
+    simpledialog,
+)
 
 _root = None
 _pack_side = None
 _events = []
 _radioVariable = None
+
 
 class AutoScrollbar(Scrollbar):
     # a scrollbar that hides itself if it's not needed.  only
@@ -90,10 +52,13 @@ class AutoScrollbar(Scrollbar):
         else:
             self.grid()
         Scrollbar.set(self, lo, hi)
+
     def pack(self, **kw):
         raise TclError("cannot use pack with this widget")
+
     def place(self, **kw):
         raise TclError("cannot use place with this widget")
+
 
 class window(tkinter.Tk):
     def __init__(self, title="Window", **kw):
@@ -106,12 +71,11 @@ class window(tkinter.Tk):
 
         # create scroll bar
         self.vscrollbar = AutoScrollbar(self)
-        self.vscrollbar.grid(row=0, column=1, sticky=N+S)
+        self.vscrollbar.grid(row=0, column=1, sticky=N + S)
 
         # create canvas
-        self.canvas = tkinter.Canvas(self,
-                        yscrollcommand=self.vscrollbar.set, bd=5)
-        self.canvas.grid(row=0, column=0, sticky=N+S+E+W)
+        self.canvas = tkinter.Canvas(self, yscrollcommand=self.vscrollbar.set, bd=5)
+        self.canvas.grid(row=0, column=0, sticky=N + S + E + W)
 
         # configure scroll bar for canvas
         self.vscrollbar.config(command=self.canvas.yview)
@@ -125,20 +89,33 @@ class window(tkinter.Tk):
         self.frame.columnconfigure(0, weight=1)
         self.frame.columnconfigure(1, weight=1)
 
-
         _pack_side = TOP
         _root = self.frame
-        return self # was _root for some reason
+        return self  # was _root for some reason
 
     def __exit__(self, type, value, traceback):
         global _root, _pack_side
 
         # puts tkinter widget onto canvas
-        self.canvas.create_window(0, 0, anchor=NW, window=self.frame, width = int(self.canvas.config()['width'][4])-int(self.vscrollbar.config()['width'][4]))
+        self.canvas.create_window(
+            0,
+            0,
+            anchor=NW,
+            window=self.frame,
+            width=int(self.canvas.config()["width"][4])
+            - int(self.vscrollbar.config()["width"][4]),
+        )
 
         # deal with canvas being resized
         def resize_canvas(event):
-            self.canvas.create_window(0, 0, anchor=NW, window=self.frame, width = int(event.width)-int(self.vscrollbar.config()['width'][4]))
+            self.canvas.create_window(
+                0,
+                0,
+                anchor=NW,
+                window=self.frame,
+                width=int(event.width) - int(self.vscrollbar.config()["width"][4]),
+            )
+
         self.canvas.bind("<Configure>", resize_canvas)
 
         # updates geometry management
@@ -164,6 +141,7 @@ class window(tkinter.Tk):
         # stop all ongoing _events
         [event.set() for event in _events]
 
+
 class slot(tkinter.Frame):
     def __init__(self, **kw):
         self.kw = kw
@@ -173,7 +151,7 @@ class slot(tkinter.Frame):
         self._root_old = _root
         self._pack_side_old = _pack_side
         tkinter.Frame.__init__(self, self._root_old, **self.kw)
-        self.pack( side=self._pack_side_old, fill=tkinter.X)
+        self.pack(side=self._pack_side_old, fill=tkinter.X)
         _root = self
 
     def __exit__(self, type, value, traceback):
@@ -181,37 +159,42 @@ class slot(tkinter.Frame):
         _root = self._root_old
         _pack_side = self._pack_side_old
 
+
 class stack(slot):
     def __init__(self, **kw):
         slot.__init__(self, **kw)
+
     def __enter__(self):
         global _pack_side
         slot.__enter__(self)
         _pack_side = TOP
         return _root
 
+
 class flow(slot):
     def __init__(self, **kw):
         slot.__init__(self, **kw)
+
     def __enter__(self):
         global _pack_side
         slot.__enter__(self)
         _pack_side = LEFT
         return _root
 
-class button(tkinter.Button, object):
+
+class button(tkinter.Button):
     def __init__(self, text="", **kw):
-        self.kw   = kw
+        self.kw = kw
         self.textvariable = tkinter.StringVar()
-        self.textvariable.set(self.kw['text'] if 'text' in self.kw else text)
-        if 'text' in self.kw:
-            del self.kw['text']
-        tkinter.Button.__init__(self, _root, textvariable = self.textvariable, **kw)
-        self.pack( side = _pack_side )
+        self.textvariable.set(self.kw["text"] if "text" in self.kw else text)
+        if "text" in self.kw:
+            del self.kw["text"]
+        tkinter.Button.__init__(self, _root, textvariable=self.textvariable, **kw)
+        self.pack(side=_pack_side)
 
     def __call__(self, func):
         func.button = self
-        self.config(command = lambda: func())
+        self.config(command=lambda: func())
         return func
 
     @property
@@ -222,33 +205,16 @@ class button(tkinter.Button, object):
     def text(self, text):
         self.textvariable.set(text)
 
-class label(tkinter.Label, object):
-    def __init__(self, text="", **kw):
-        self.kw   = kw
-        self.textvariable = tkinter.StringVar()
-        self.textvariable.set(self.kw['text'] if 'text' in self.kw else text)
-        if 'text' in self.kw:
-            del self.kw['text']
-        tkinter.Label.__init__(self, _root, textvariable=self.textvariable, **kw)
-        self.pack( side=_pack_side )
 
-    @property
-    def text(self):
-        return self.textvariable.get()
-
-    @text.setter
-    def text(self, text):
-        self.textvariable.set(text)
-
-class message(tkinter.Message, object):
+class label(tkinter.Label):
     def __init__(self, text="", **kw):
         self.kw = kw
         self.textvariable = tkinter.StringVar()
-        self.textvariable.set(self.kw['text'] if 'text' in self.kw else text)
-        if 'text' in self.kw:
-            del self.kw['text']
-        tkinter.Message.__init__(self, _root, textvariable=self.textvariable, anchor=NW, **kw)
-        self.pack( side=_pack_side )
+        self.textvariable.set(self.kw["text"] if "text" in self.kw else text)
+        if "text" in self.kw:
+            del self.kw["text"]
+        tkinter.Label.__init__(self, _root, textvariable=self.textvariable, **kw)
+        self.pack(side=_pack_side)
 
     @property
     def text(self):
@@ -257,6 +223,28 @@ class message(tkinter.Message, object):
     @text.setter
     def text(self, text):
         self.textvariable.set(text)
+
+
+class message(tkinter.Message):
+    def __init__(self, text="", **kw):
+        self.kw = kw
+        self.textvariable = tkinter.StringVar()
+        self.textvariable.set(self.kw["text"] if "text" in self.kw else text)
+        if "text" in self.kw:
+            del self.kw["text"]
+        tkinter.Message.__init__(
+            self, _root, textvariable=self.textvariable, anchor=NW, **kw
+        )
+        self.pack(side=_pack_side)
+
+    @property
+    def text(self):
+        return self.textvariable.get()
+
+    @text.setter
+    def text(self, text):
+        self.textvariable.set(text)
+
 
 class repeat(threading.Thread):
     def __init__(self, interval=1):
@@ -275,6 +263,7 @@ class repeat(threading.Thread):
         while not self.stopped.wait(self.interval):
             self.func()
 
+
 class loop(threading.Thread):
     def __init__(self):
         global _events
@@ -291,7 +280,8 @@ class loop(threading.Thread):
         while not self.stopped.isSet():
             self.func()
 
-class editBox(tkinter.Entry, object):
+
+class editBox(tkinter.Entry):
     def __init__(self, text="", *args, **kwargs):
         self.textvariable = tkinter.StringVar()
         self.textvariable.set(text)
@@ -306,35 +296,46 @@ class editBox(tkinter.Entry, object):
     def text(self, text):
         self.textvariable.set(text)
 
-def showInfo(title = "Info", message = "", **kw):
+
+def showInfo(title="Info", message="", **kw):
     messagebox.showinfo(title, message, **kw)
 
-def showWarning(title = "Warning", message = "", **kw):
+
+def showWarning(title="Warning", message="", **kw):
     messagebox.showwarning(title, message, **kw)
 
-def showError(title = "Error", message = "", **kw):
+
+def showError(title="Error", message="", **kw):
     messagebox.showerror(title, message, **kw)
 
-def askYesNo(title = "Question", message = "", **kw):
+
+def askYesNo(title="Question", message="", **kw):
     return messagebox.askyesno(title, message, **kw)
 
-def askOkCancel(title = "Question", message = "", **kw):
+
+def askOkCancel(title="Question", message="", **kw):
     return messagebox.askokcancel(title, message, **kw)
 
-def askRetryCancel(title = "Retry?", message = "", **kw):
+
+def askRetryCancel(title="Retry?", message="", **kw):
     return messagebox.askretrycancel(title, message, **kw)
 
-def askYesNoCancel(title = "Retry?", message = "", **kw): # returns None on cancel
+
+def askYesNoCancel(title="Retry?", message="", **kw):  # returns None on cancel
     return messagebox.askyesnocancel(title, message, **kw)
+
 
 def askOpenFilename(**kw):
     return filedialog.askopenfilename(**kw)
 
+
 def askSaveAsFilename(**kw):
     return filedialog.asksaveasfilename(**kw)
 
+
 def askOpenFilenames(**kw):
     return filedialog.askopenfilenames(**kw)
+
 
 @contextmanager
 def askOpenFile(**kw):
@@ -343,6 +344,7 @@ def askOpenFile(**kw):
         yield file
     finally:
         file.close()
+
 
 @contextmanager
 def askOpenFiles(**kw):
@@ -353,6 +355,7 @@ def askOpenFiles(**kw):
         for file in files:
             file.close()
 
+
 @contextmanager
 def askSaveAsFile(**kw):
     file = filedialog.asksaveasfile(**kw)
@@ -361,20 +364,27 @@ def askSaveAsFile(**kw):
     finally:
         file.close()
 
+
 def askDirectory(**kw):
     return filedialog.askdirectory(**kw)
+
 
 def askInteger(title, prompt, **kw):
     return simpledialog.askinteger(title, prompt, **kw)
 
+
 def askFloat(title, prompt, **kw):
     return simpledialog.askfloat(title, prompt, **kw)
+
 
 def askString(title, prompt, **kw):
     return simpledialog.askstring(title, prompt, **kw)
 
-class scrolledText(scrolledtext.ScrolledText, object):
-    def __init__(self, text = "", bg='white', height=10, expand=True, editable=True, **kw):
+
+class scrolledText(scrolledtext.ScrolledText):
+    def __init__(
+        self, text="", bg="white", height=10, expand=True, editable=True, **kw
+    ):
         global _root, _pack_side
         scrolledtext.ScrolledText.__init__(self, _root, bg=bg, height=height, **kw)
         self.insert(tkinter.END, text)
@@ -384,7 +394,7 @@ class scrolledText(scrolledtext.ScrolledText, object):
 
     @property
     def editable(self):
-        return self.state==NORMAL
+        return self.state == NORMAL
 
     @editable.setter
     def editable(self, editable):
@@ -393,17 +403,24 @@ class scrolledText(scrolledtext.ScrolledText, object):
         else:
             self.config(state=DISABLED)
 
-class checkBox(tkinter.Checkbutton, object):
+
+class checkBox(tkinter.Checkbutton):
     def __init__(self, text="", checked=False, *args, **kwargs):
         self.textvariable = tkinter.StringVar()
         self.textvariable.set(text)
         self._checked = tkinter.BooleanVar()
         self._checked.set(checked)
-        tkinter.Checkbutton.__init__(self, _root, textvariable=self.textvariable, variable=self._checked, **kwargs)
+        tkinter.Checkbutton.__init__(
+            self,
+            _root,
+            textvariable=self.textvariable,
+            variable=self._checked,
+            **kwargs,
+        )
         self.pack(side=_pack_side)
 
     def __call__(self, func):
-        self.config(command = lambda: func(self.checked))
+        self.config(command=lambda: func(self.checked))
         return func
 
     @property
@@ -423,7 +440,7 @@ class checkBox(tkinter.Checkbutton, object):
         self._checked.set(text)
 
 
-class radioButton(tkinter.Radiobutton, object):
+class radioButton(tkinter.Radiobutton):
     def __init__(self, value, text="", variable=None, checked=False, *args, **kwargs):
         global _radioVariable
         self.textvariable = tkinter.StringVar()
@@ -431,11 +448,18 @@ class radioButton(tkinter.Radiobutton, object):
         if variable is None:
             variable = _radioVariable
         self.variable = variable
-        tkinter.Radiobutton.__init__(self, _root, textvariable=self.textvariable, variable=self.variable, value=value, **kwargs)
+        tkinter.Radiobutton.__init__(
+            self,
+            _root,
+            textvariable=self.textvariable,
+            variable=self.variable,
+            value=value,
+            **kwargs,
+        )
         self.pack(side=_pack_side)
 
     def __call__(self, func):
-        self.config(command = lambda: func(self.variable.get()))
+        self.config(command=lambda: func(self.variable.get()))
         return func
 
     @property
@@ -446,7 +470,8 @@ class radioButton(tkinter.Radiobutton, object):
     def text(self, text):
         self.textvariable.set(text)
 
-class radioSet(object):
+
+class radioSet:
     def __enter__(self):
         global _radioVariable
         self.IntVar = tkinter.IntVar()
@@ -464,7 +489,8 @@ class radioSet(object):
     def number(self, n):
         self.IntVar.set(n)
 
-class spinBox(tkinter.Spinbox, object):
+
+class spinBox(tkinter.Spinbox):
     def __init__(self, default=None, **kw):
         tkinter.Spinbox.__init__(self, _root, **kw)
         self.pack(side=_pack_side)
@@ -473,21 +499,22 @@ class spinBox(tkinter.Spinbox, object):
             self.insert(0, default)
 
     def __call__(self, func):
-        self.config(command = lambda: func(self.get()))
+        self.config(command=lambda: func(self.get()))
         return self
 
     @property
     def value(self):
         return self.get()
 
-class scaleBar(tkinter.Scale, object):
+
+class scaleBar(tkinter.Scale):
     def __init__(self, range=None, enabled=True, **kw):
         tkinter.Scale.__init__(self, _root, **kw)
         self.pack(side=_pack_side)
         self._enabled = enabled
 
     def __call__(self, func):
-        self.config(command = func)
+        self.config(command=func)
         return func
 
     @property
@@ -514,7 +541,8 @@ class scaleBar(tkinter.Scale, object):
         else:
             self.config(state=DISABLED)
 
-class optionMenu(tkinter.OptionMenu, object):
+
+class optionMenu(tkinter.OptionMenu):
     def __init__(self, *values, **kw):
         self.values = values
         self.kw = kw
@@ -524,7 +552,9 @@ class optionMenu(tkinter.OptionMenu, object):
 
     def __call__(self, func):
         self.StringVar = tkinter.StringVar()
-        tkinter.OptionMenu.__init__(self, _root, self.StringVar, *self.values, command = func, **self.kw)
+        tkinter.OptionMenu.__init__(
+            self, _root, self.StringVar, *self.values, command=func, **self.kw
+        )
         self.pack(side=_pack_side)
         return func
 
@@ -536,11 +566,12 @@ class optionMenu(tkinter.OptionMenu, object):
     def option(self, option):
         self.StringVar.set(option)
 
-class listBox(tkinter.Listbox, object):
+
+class listBox(tkinter.Listbox):
     def __init__(self, **kw):
-        values = kw['values']
-        if 'values' in kw:
-            del kw['values']
+        values = kw["values"]
+        if "values" in kw:
+            del kw["values"]
         tkinter.Listbox.__init__(self, _root, **kw)
         self.pack(side=_pack_side)
         for item in values:

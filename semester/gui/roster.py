@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
-from semester.gui.sandals import (window, label, stack, tkinter,
-        editBox, askOpenFile, spinBox, button, flow)
-from semester.roster import Roster
+from __future__ import annotations
+
 import webbrowser
+
+from semester.gui.sandals import (
+    askOpenFile,
+    button,
+    editBox,
+    flow,
+    label,
+    spinBox,
+    stack,
+    tkinter,
+    window,
+)
+from semester.roster import Roster
+
 
 def main():
     with window("Make roster"):
@@ -10,6 +23,7 @@ def main():
 
         with stack(borderwidth=1, relief=tkinter.SUNKEN):
             file_label = editBox("", width=50)
+
             @button("Pick roster file")
             def pick_file():
                 with askOpenFile() as f:
@@ -24,9 +38,11 @@ def main():
                     times_label.text = f.name
 
         with flow():
-            mylabel = label("The number of assignments for columns roster:")
+            mylabel = label(  # noqa: F841
+                "The number of assignments for columns roster:"
+            )
 
-            @spinBox(default=11, values=list(range(2,13)), width=4)
+            @spinBox(default=11, values=list(range(2, 13)), width=4)
             def spin(value):
                 pass
 
@@ -36,11 +52,13 @@ def main():
                 print("Must have a filename")
                 return
             if times_label.text:
-                Roster.invoke(file_label.text, number=int(spin.value), schedule=times_label.text)
-                webbrowser.open('students.pdf')
+                Roster.invoke(
+                    file_label.text, number=int(spin.value), schedule=times_label.text
+                )
+                webbrowser.open("students.pdf")
             else:
                 Roster.invoke(file_label.text, number=int(spin.value))
-                webbrowser.open('roster.pdf')
+                webbrowser.open("roster.pdf")
 
         @button("Make sign in sheet")
         def make_signin():
@@ -48,11 +66,17 @@ def main():
                 print("Must have a filename")
                 return
             if times_label.text:
-                Roster.invoke(file_label.text, number=int(spin.value), schedule=times_label.text, roster=True)
-                webbrowser.open('students.pdf')
+                Roster.invoke(
+                    file_label.text,
+                    number=int(spin.value),
+                    schedule=times_label.text,
+                    roster=True,
+                )
+                webbrowser.open("students.pdf")
             else:
                 Roster.invoke(file_label.text, number=int(spin.value), roster=True)
-                webbrowser.open('roster.pdf')
+                webbrowser.open("roster.pdf")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
